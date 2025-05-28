@@ -10,7 +10,7 @@ export default function NotFound() {
         {/* Animated Panda SVG */}
         <div className="mb-8">
           <svg
-            className="w-64 h-64 mx-auto animate-bounce"
+            className="w-64 h-64 mx-auto"
             viewBox="0 0 200 200"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
