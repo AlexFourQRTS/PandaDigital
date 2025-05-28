@@ -67,7 +67,7 @@ export const chatMessages = pgTable('chat_messages', {
 
 // Insert schemas
 export const insertUserSchema = createInsertSchema(users).omit({ id: true, createdAt: true });
-export const insertBlogPostSchema = createInsertSchema(blogPosts).omit({ id: true, createdAt: true, updatedAt: true });
+export const insertBlogPostSchema = createInsertSchema(blogPosts).omit({ id: true, createdAt: true });
 export const insertTechnologySchema = createInsertSchema(technologies).omit({ id: true, createdAt: true });
 export const insertNewsArticleSchema = createInsertSchema(newsArticles).omit({ id: true, createdAt: true });
 export const insertMediaFileSchema = createInsertSchema(mediaFiles).omit({ id: true, createdAt: true });
