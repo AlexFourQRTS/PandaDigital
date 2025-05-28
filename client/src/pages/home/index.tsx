@@ -1,6 +1,6 @@
 import { ArrowRight, MessageCircle, FileText, Image, Zap } from "lucide-react";
 import { Link } from "wouter";
-import styles from "./Home.module.css";
+import styles from "./styles.module.css";
 
 export default function Home() {
   return (

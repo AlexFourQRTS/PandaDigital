@@ -15,7 +15,7 @@ import { Search, Plus, Clock, FileText } from "lucide-react";
 import { z } from "zod";
 import BlogCard from "@/components/blog/blog-card";
 import type { BlogPost } from "@shared/schema";
-import styles from "./Blog.module.css";
+import styles from "./styles.module.css";
 
 const createBlogPostSchema = insertBlogPostSchema.extend({
   title: z.string().min(1, "Title is required"),

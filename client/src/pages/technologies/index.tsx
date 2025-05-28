@@ -16,7 +16,7 @@ import { useToast } from "@/hooks/use-toast";
 import { Plus, Trash2, Zap, ChevronDown } from "lucide-react";
 import { z } from "zod";
 import type { Technology } from "@shared/schema";
-import styles from "./Technologies.module.css";
+import styles from "./styles.module.css";
 
 const createTechnologySchema = insertTechnologySchema.extend({
   name: z.string().min(1, "Name is required"),
