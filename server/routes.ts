@@ -14,7 +14,7 @@ interface FileRequest extends Request {
 }
 
 // Configure multer for file uploads
-const uploadDir = path.join(__dirname, "uploads");
+const uploadDir = path.join(process.cwd(), "uploads");
 if (!fs.existsSync(uploadDir)) {
   fs.mkdirSync(uploadDir, { recursive: true });
 }
@@ -22,7 +22,7 @@ if (!fs.existsSync(uploadDir)) {
 const upload = multer({
   dest: uploadDir,
   limits: {
-    fileSize: 200 * 1024 * 1024, // 200MB limit
+    fileSize: 50 * 1024 * 1024, // 50MB limit
   },
 });
 
