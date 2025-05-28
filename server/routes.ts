@@ -5,7 +5,7 @@ import multer from "multer";
 import path from "path";
 import fs from "fs";
 import { storage } from "./storage";
-import { insertBlogPostSchema, insertTechnologySchema, insertChatMessageSchema } from "@shared/schema";
+import { insertBlogPostSchema, insertTechnologySchema, insertChatMessageSchema } from "../common-data/schema";
 import { z } from "zod";
 
 // Extend Express Request type to include file
