@@ -11,12 +11,18 @@
   "license": "ISC",
   "dependencies": {
     "@neondatabase/serverless": "^1.0.0",
+    "@types/express": "^5.0.2",
+    "@types/multer": "^1.4.12",
+    "@types/node": "^22.15.23",
+    "@types/ws": "^8.18.1",
     "concurrently": "^9.1.2",
     "drizzle-orm": "^0.44.0",
     "drizzle-zod": "^0.8.2",
     "express": "^5.1.0",
     "multer": "^2.0.0",
     "nanoid": "^5.1.5",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.8.3",
     "ws": "^8.18.2",
     "zod": "^3.25.32"
   }
