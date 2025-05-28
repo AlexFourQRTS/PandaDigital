@@ -1,4 +1,5 @@
 import { Injectable } from '@nestjs/common';
+import { eq } from 'drizzle-orm';
 import { DatabaseService } from '../../../database/database.service';
 import { newsArticles, type NewsArticle, type InsertNewsArticle } from '../../../../../shared/schema';
 

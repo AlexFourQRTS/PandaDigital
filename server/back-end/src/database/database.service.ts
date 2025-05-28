@@ -8,18 +8,18 @@ neonConfig.webSocketConstructor = ws;
 
 @Injectable()
 export class DatabaseService {
-  public readonly db: ReturnType<typeof drizzle>;
-  private readonly pool: Pool;
+  public db: ReturnType<typeof drizzle>;
+  private pool: Pool;
 
   constructor() {
     if (!process.env.DATABASE_URL) {
       throw new Error(
-        "DATABASE_URL must be set. Did you forget to provision a database?",
+        'DATABASE_URL must be set. Did you forget to provision a database?',
       );
     }
 
     this.pool = new Pool({ connectionString: process.env.DATABASE_URL });
-    this.db = drizzle(this.pool, { schema });
+    this.db = drizzle({ client: this.pool, schema });
   }
 
   async onModuleDestroy() {
