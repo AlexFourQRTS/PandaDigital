@@ -6,6 +6,7 @@ import { queryClient, apiRequest } from "@/lib/queryClient";
 import { useToast } from "@/hooks/use-toast";
 import { RefreshCw, ExternalLink, Calendar } from "lucide-react";
 import type { NewsArticle } from "@shared/schema";
+import styles from "./styles.module.css";
 
 export default function News() {
   const { toast } = useToast();

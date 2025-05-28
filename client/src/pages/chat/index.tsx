@@ -9,6 +9,7 @@ import { useWebSocket } from "@/hooks/use-websocket";
 import { useAuth } from "@/contexts/AuthContext";
 import ChatMessage from "@/components/chat/chat-message";
 import type { ChatMessage as ChatMessageType } from "@shared/schema";
+import styles from "./styles.module.css";
 
 export default function Chat() {
   const [message, setMessage] = useState("");
