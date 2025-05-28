@@ -24,8 +24,8 @@ app.get('/api/health', (req, res) => {
   res.status(200).json({ status: 'ok', timestamp: new Date().toISOString() });
 });
 
-// Serve uploads directory
-app.use('/uploads', express.static('/app/uploads'));
+// Serve media directory
+app.use('/media', express.static('/app/media'));
 
 app.use((req, res, next) => {
   const start = Date.now();

@@ -14,6 +14,9 @@ COPY ../shared ./shared
 # Copy server code
 COPY . .
 
+# Create media directory
+RUN mkdir -p media
+
 # Expose port
 EXPOSE 5000
 
