@@ -3,22 +3,22 @@
 @tailwind utilities;
 
 :root {
-  --background: 0 0% 100%;
-  --foreground: 0 0% 15%; /* #262626 - graphite-800 */
-  --muted: 0 0% 96%; /* #f5f5f5 - gray-100 */
-  --muted-foreground: 0 0% 40%; /* #666666 - graphite-600 */
-  --popover: 0 0% 100%;
-  --popover-foreground: 0 0% 15%;
-  --card: 0 0% 100%;
-  --card-foreground: 0 0% 15%;
-  --border: 0 0% 90%; /* #e5e5e5 - gray-200 */
-  --input: 0 0% 90%;
+  --background: 0 0% 18%; /* #2f2f2f - graphite-900 */
+  --foreground: 0 0% 98%; /* Light text */
+  --muted: 0 0% 25%; /* #404040 - graphite-800 */
+  --muted-foreground: 0 0% 60%; /* #999999 - graphite-400 */
+  --popover: 0 0% 25%;
+  --popover-foreground: 0 0% 98%;
+  --card: 0 0% 25%; /* #404040 - graphite-800 */
+  --card-foreground: 0 0% 98%;
+  --border: 0 0% 30%; /* #4d4d4d - graphite-700 */
+  --input: 0 0% 30%;
   --primary: 18 100% 60%; /* #ff6b35 - panda-orange-500 */
-  --primary-foreground: 0 0% 98%;
-  --secondary: 0 0% 96%;
-  --secondary-foreground: 0 0% 15%;
-  --accent: 0 0% 96%;
-  --accent-foreground: 0 0% 15%;
+  --primary-foreground: 0 0% 18%;
+  --secondary: 0 0% 30%;
+  --secondary-foreground: 0 0% 98%;
+  --accent: 18 100% 60%; /* Orange accent */
+  --accent-foreground: 0 0% 18%;
   --destructive: 0 84% 60%;
   --destructive-foreground: 0 0% 98%;
   --ring: 18 100% 60%;
