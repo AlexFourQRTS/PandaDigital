@@ -1,0 +1,82 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:15-alpine
+    container_name: panda_postgres
+    environment:
+      POSTGRES_DB: mydatabase
+      POSTGRES_USER: xsanderadmin
+      POSTGRES_PASSWORD: qazxdr5WSE#!QAZXDR%2wse43
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+    networks:
+      - panda_network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U xsanderadmin -d mydatabase"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  backend:
+    build:
+      context: .
+      dockerfile: backend.Dockerfile
+    container_name: panda_backend
+    environment:
+      DATABASE_URL: postgresql://xsanderadmin:qazxdr5WSE%23%21QAZXDR%252wse43@postgres:5432/mydatabase
+      PGHOST: postgres
+      PGPORT: 5432
+      PGUSER: xsanderadmin
+      PGPASSWORD: qazxdr5WSE#!QAZXDR%2wse43
+      PGDATABASE: mydatabase
+      NODE_ENV: production
+    ports:
+      - "3001:3001"
+    volumes:
+      - ./uploads:/app/uploads
+    depends_on:
+      postgres:
+        condition: service_healthy
+    networks:
+      - panda_network
+    restart: unless-stopped
+
+  frontend:
+    build:
+      context: .
+      dockerfile: frontend.Dockerfile
+    container_name: panda_frontend
+    environment:
+      VITE_API_URL: http://localhost:3001
+    ports:
+      - "3000:3000"
+    depends_on:
+      - backend
+    networks:
+      - panda_network
+    restart: unless-stopped
+
+  nginx:
+    image: nginx:alpine
+    container_name: panda_nginx
+    ports:
+      - "80:80"
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf
+    depends_on:
+      - frontend
+      - backend
+    networks:
+      - panda_network
+    restart: unless-stopped
+
+volumes:
+  postgres_data:
+
+networks:
+  panda_network:
+    driver: bridge
