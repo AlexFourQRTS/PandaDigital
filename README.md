@@ -39,16 +39,18 @@ docker-compose -f ../docker-compose.yml up -d
 
 ```
 ├── .git/            # Git репозиторий (корневая папка)
-├── client/          # React фронтенд
-│   ├── src/         # Исходный код
+├── .gitignore       # Игнор файлы для Git
+├── README.md        # Документация проекта
+├── client/          # React фронтенд (автономный проект)
+│   ├── src/         # Исходный код React приложения
+│   │   └── assets/  # Изображения и ресурсы
 │   ├── package.json # Зависимости фронтенда
 │   └── vite.config.ts # Конфигурация Vite
-├── server/          # Express бэкенд
+├── server/          # Express бэкенд + Docker
 │   ├── package.json # Зависимости бэкенда
 │   ├── Dockerfile   # Docker образ бэкенда
 │   └── docker-compose.yml # Конфигурация Docker
-├── media/           # Папка для загруженных файлов
-└── shared/          # Общие типы и схемы
+└── media/           # Папка для загруженных пользователями файлов
 ```
 
 ## 🛠 Команды разработки

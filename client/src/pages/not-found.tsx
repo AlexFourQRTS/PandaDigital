@@ -2,7 +2,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Home, ArrowLeft } from "lucide-react";
 import { Link } from "wouter";
-import sadnessImage from "@assets/klipartz.com_1748440676219.png";
+import sadnessImage from "../assets/klipartz.com_1748440676219.png";
 
 export default function NotFound() {
   return (

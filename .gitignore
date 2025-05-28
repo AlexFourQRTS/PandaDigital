@@ -69,3 +69,6 @@ data/
 # Temporary folders
 tmp/
 temp/
+
+# Chat assets (not needed in project)
+attached_assets/
