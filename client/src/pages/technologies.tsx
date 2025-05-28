@@ -2,20 +2,21 @@ import { useState } from "react";
 import { useQuery, useMutation } from "@tanstack/react-query";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { Badge } from "@/components/ui/badge";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { insertTechnologySchema } from "@shared/schema";
 import { queryClient, apiRequest } from "@/lib/queryClient";
 import { useToast } from "@/hooks/use-toast";
-import { Plus, Trash2 } from "lucide-react";
+import { Plus, Trash2, Zap, ChevronDown } from "lucide-react";
 import { z } from "zod";
 import type { Technology } from "@shared/schema";
+import styles from "./Technologies.module.css";
 
 const createTechnologySchema = insertTechnologySchema.extend({
   name: z.string().min(1, "Name is required"),
@@ -99,11 +100,16 @@ export default function Technologies() {
   };
 
   return (
-    <div className="py-16 bg-gray-50 min-h-screen">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-12">
-          <h1 className="text-3xl lg:text-4xl font-bold text-graphite-900 mb-4">Technologies</h1>
-          <p className="text-xl text-graphite-600 mb-8">Explore the technologies that power our platform</p>
+    <div className={styles.container}>
+      {/* Hero Section */}
+      <section className={styles.heroSection}>
+        <div className={styles.heroContent}>
+          <h1 className={styles.title}>
+            <span className={styles.titleHighlight}>Tech</span> Stack
+          </h1>
+          <p className={styles.subtitle}>
+            Explore the cutting-edge technologies that power our platform
+          </p>
           
           <Dialog open={isCreateDialogOpen} onOpenChange={setIsCreateDialogOpen}>
             <DialogTrigger asChild>
@@ -177,7 +183,10 @@ export default function Technologies() {
             </DialogContent>
           </Dialog>
         </div>
+      </section>
 
+      {/* Content Section */}
+      <section className={styles.content}>
         <div className="max-w-4xl mx-auto">
           {isLoading ? (
             <div className="space-y-4">
@@ -248,7 +257,7 @@ export default function Technologies() {
             </Accordion>
           )}
         </div>
-      </div>
+      </section>
     </div>
   );
 }
