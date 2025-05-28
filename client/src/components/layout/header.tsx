@@ -27,13 +27,13 @@ export default function Header() {
   };
 
   return (
-    <header className="bg-white shadow-lg sticky top-0 z-50">
+    <header className="bg-gray-900 shadow-xl sticky top-0 z-50 border-b border-gray-800">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
           {/* Logo */}
           <div className="flex items-center">
             <Link href="/" className="flex-shrink-0">
-              <span className="text-2xl font-bold text-graphite-900">🐼 Panda</span>
+              <span className="text-2xl font-bold text-white">🐼 <span className="text-orange-500">Panda</span></span>
             </Link>
           </div>
 
@@ -43,10 +43,10 @@ export default function Header() {
               {navigation.map((item) => (
                 <Link key={item.name} href={item.href}>
                   <a
-                    className={`px-3 py-2 text-sm font-medium transition-colors ${
+                    className={`px-3 py-2 text-sm font-medium transition-colors rounded-md ${
                       isActive(item.href)
-                        ? "text-panda-orange-500 border-b-2 border-panda-orange-500"
-                        : "text-graphite-700 hover:text-panda-orange-500"
+                        ? "text-orange-400 bg-orange-500/10 border border-orange-500/20"
+                        : "text-gray-300 hover:text-orange-400 hover:bg-gray-800"
                     }`}
                   >
                     {item.name}
@@ -65,20 +65,20 @@ export default function Header() {
           <div className="md:hidden">
             <Sheet open={isMobileMenuOpen} onOpenChange={setIsMobileMenuOpen}>
               <SheetTrigger asChild>
-                <Button variant="ghost" size="icon" className="text-graphite-700 hover:text-panda-orange-500">
+                <Button variant="ghost" size="icon" className="text-gray-300 hover:text-orange-400 hover:bg-gray-800">
                   <Menu className="h-6 w-6" />
                 </Button>
               </SheetTrigger>
-              <SheetContent side="right" className="w-[300px] sm:w-[400px]">
+              <SheetContent side="right" className="w-[300px] sm:w-[400px] bg-gray-900 border-l border-gray-800">
                 <div className="flex flex-col space-y-4 mt-8">
-                  <div className="text-xl font-bold text-graphite-900 mb-4">🐼 Panda</div>
+                  <div className="text-xl font-bold text-white mb-4">🐼 <span className="text-orange-500">Panda</span></div>
                   {navigation.map((item) => (
                     <Link key={item.name} href={item.href}>
                       <a
-                        className={`block px-3 py-2 text-base font-medium transition-colors ${
+                        className={`block px-3 py-2 text-base font-medium transition-colors rounded-md ${
                           isActive(item.href)
-                            ? "text-panda-orange-500 bg-panda-orange-50 rounded-md"
-                            : "text-graphite-700 hover:text-panda-orange-500 hover:bg-gray-50 rounded-md"
+                            ? "text-orange-400 bg-orange-500/10 border border-orange-500/20"
+                            : "text-gray-300 hover:text-orange-400 hover:bg-gray-800"
                         }`}
                         onClick={() => setIsMobileMenuOpen(false)}
                       >
@@ -88,7 +88,7 @@ export default function Header() {
                   ))}
                   
                   {/* Auth Button - Mobile */}
-                  <div className="pt-4 border-t border-gray-200">
+                  <div className="pt-4 border-t border-gray-800">
                     <AuthButton />
                   </div>
                 </div>
