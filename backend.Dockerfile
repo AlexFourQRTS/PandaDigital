@@ -23,4 +23,4 @@ RUN npm install typescript @types/node
 
 EXPOSE 3001
 
-CMD ["tsx", "server/index.ts"]
+CMD ["tsx", "server/docker-server.ts"]
