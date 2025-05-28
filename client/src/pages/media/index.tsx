@@ -120,18 +120,23 @@ export default function Media() {
   };
 
   return (
-    <div className="py-16 bg-white min-h-screen">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-12">
-          <h1 className="text-3xl lg:text-4xl font-bold text-graphite-900 mb-4">Media Gallery</h1>
-          <p className="text-xl text-graphite-600 mb-8">Share and explore photos, videos, and audio content</p>
+    <div className={styles.container}>
+      {/* Hero Section */}
+      <section className={styles.heroSection}>
+        <div className={styles.heroContent}>
+          <h1 className={styles.title}>
+            Media <span className={styles.titleHighlight}>Gallery</span>
+          </h1>
+          <p className={styles.subtitle}>
+            Share and explore photos, videos, audio files, and documents with ease
+          </p>
           
           <Dialog open={isUploadDialogOpen} onOpenChange={setIsUploadDialogOpen}>
             <DialogTrigger asChild>
-              <Button className="bg-panda-orange-500 hover:bg-panda-orange-600 text-white">
-                <Upload className="h-4 w-4 mr-2" />
+              <button className={styles.uploadButton}>
+                <Upload className="h-4 w-4" />
                 Upload Media
-              </Button>
+              </button>
             </DialogTrigger>
             <DialogContent className="max-w-lg">
               <DialogHeader>
@@ -185,7 +190,10 @@ export default function Media() {
             </DialogContent>
           </Dialog>
         </div>
+      </section>
 
+      {/* Content Section */}
+      <section className={styles.content}>
         <Tabs value={selectedMediaType} onValueChange={(value) => setSelectedMediaType(value as "photo" | "video" | "audio" | "document")} className="w-full">
           <div className="flex justify-center mb-8">
             <TabsList className="grid w-full max-w-2xl grid-cols-4">
@@ -410,7 +418,7 @@ export default function Media() {
             )}
           </TabsContent>
         </Tabs>
-      </div>
+      </section>
     </div>
   );
 }

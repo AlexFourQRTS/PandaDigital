@@ -67,21 +67,30 @@ export default function News() {
   };
 
   return (
-    <div className="py-16 bg-gray-50 min-h-screen">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-12">
-          <h1 className="text-3xl lg:text-4xl font-bold text-graphite-900 mb-4">Latest Tech News</h1>
-          <p className="text-xl text-graphite-600 mb-8">Stay updated with the latest technology trends and news</p>
+    <div className={styles.container}>
+      {/* Hero Section */}
+      <section className={styles.heroSection}>
+        <div className={styles.heroContent}>
+          <h1 className={styles.title}>
+            Latest <span className={styles.titleHighlight}>Tech News</span>
+          </h1>
+          <p className={styles.subtitle}>
+            Stay updated with the latest technology trends and breaking news
+          </p>
           
-          <Button
+          <button
             onClick={() => fetchNewsMutation.mutate()}
             disabled={fetchNewsMutation.isPending}
-            className="bg-panda-orange-500 hover:bg-panda-orange-600 text-white"
+            className={styles.fetchButton}
           >
-            <RefreshCw className={`h-4 w-4 mr-2 ${fetchNewsMutation.isPending ? "animate-spin" : ""}`} />
+            <RefreshCw className={`h-4 w-4 ${fetchNewsMutation.isPending ? "animate-spin" : ""}`} />
             {fetchNewsMutation.isPending ? "Fetching..." : "Fetch Latest News"}
-          </Button>
+          </button>
         </div>
+      </section>
+
+      {/* Content Section */}
+      <section className={styles.content}>
 
         {isLoading ? (
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -172,7 +181,7 @@ export default function News() {
             </Button>
           </div>
         )}
-      </div>
+      </section>
     </div>
   );
 }
