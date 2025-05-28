@@ -82,10 +82,15 @@ export default function Blog() {
 
   return (
     <div className={styles.container}>
-      <div className={styles.content}>
-        <div className={styles.header}>
-          <h1 className={styles.title}>Tech Blog</h1>
-          <p className={styles.subtitle}>Code snippets, tutorials, and tech insights</p>
+      {/* Hero Section */}
+      <section className={styles.heroSection}>
+        <div className={styles.heroContent}>
+          <h1 className={styles.title}>
+            Tech <span className={styles.titleHighlight}>Blog</span>
+          </h1>
+          <p className={styles.subtitle}>
+            Code snippets, tutorials, and tech insights for developers
+          </p>
           
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center max-w-2xl mx-auto">
             <div className="relative flex-1 w-full">
@@ -95,16 +100,16 @@ export default function Blog() {
                 placeholder="Search blog posts..."
                 value={searchQuery}
                 onChange={handleSearch}
-                className="pl-10 w-full"
+                className="pl-10 w-full bg-white/10 border-white/20 text-white placeholder:text-gray-300"
               />
             </div>
             
             <Dialog open={isCreateDialogOpen} onOpenChange={setIsCreateDialogOpen}>
               <DialogTrigger asChild>
-                <Button className="bg-panda-orange-500 hover:bg-panda-orange-600 text-white">
-                  <Plus className="h-4 w-4 mr-2" />
+                <button className={styles.createButton}>
+                  <Plus className="h-4 w-4" />
                   Create Post
-                </Button>
+                </button>
               </DialogTrigger>
               <DialogContent className="max-w-2xl">
                 <DialogHeader>
@@ -234,7 +239,10 @@ export default function Blog() {
             </Dialog>
           </div>
         </div>
+      </section>
 
+      {/* Content Section */}
+      <section className={styles.content}>
         {isLoading ? (
           <div className={styles.loadingGrid}>
             {[...Array(6)].map((_, i) => (
@@ -275,7 +283,7 @@ export default function Blog() {
             ))}
           </div>
         )}
-      </div>
+      </section>
     </div>
   );
 }
