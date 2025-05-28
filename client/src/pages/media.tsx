@@ -8,12 +8,13 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { queryClient, apiRequest } from "@/lib/queryClient";
 import { useToast } from "@/hooks/use-toast";
-import { Upload, Play, Volume2, Image, Trash2 } from "lucide-react";
+import { Upload, Play, Volume2, Image, Trash2, FileText } from "lucide-react";
 import MediaPlayer from "@/components/media/media-player";
+import FileCard from "@/components/media/file-card";
 import type { MediaFile } from "@shared/schema";
 
 export default function Media() {
-  const [selectedMediaType, setSelectedMediaType] = useState<"photo" | "video" | "audio">("photo");
+  const [selectedMediaType, setSelectedMediaType] = useState<"photo" | "video" | "audio" | "document">("photo");
   const [isUploadDialogOpen, setIsUploadDialogOpen] = useState(false);
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
@@ -141,7 +142,7 @@ export default function Media() {
                   <Input
                     id="file"
                     type="file"
-                    accept="image/*,video/*,audio/*"
+                    accept="*/*"
                     onChange={handleFileSelect}
                     className="mt-1"
                   />
@@ -184,12 +185,25 @@ export default function Media() {
           </Dialog>
         </div>
 
-        <Tabs value={selectedMediaType} onValueChange={(value) => setSelectedMediaType(value as "photo" | "video" | "audio")} className="w-full">
+        <Tabs value={selectedMediaType} onValueChange={(value) => setSelectedMediaType(value as "photo" | "video" | "audio" | "document")} className="w-full">
           <div className="flex justify-center mb-8">
-            <TabsList className="grid w-full max-w-md grid-cols-3">
-              <TabsTrigger value="photo">Photos</TabsTrigger>
-              <TabsTrigger value="video">Videos</TabsTrigger>
-              <TabsTrigger value="audio">Audio</TabsTrigger>
+            <TabsList className="grid w-full max-w-2xl grid-cols-4">
+              <TabsTrigger value="photo" className="flex items-center">
+                <Image className="h-4 w-4 mr-2" />
+                Photos
+              </TabsTrigger>
+              <TabsTrigger value="video" className="flex items-center">
+                <Play className="h-4 w-4 mr-2" />
+                Videos
+              </TabsTrigger>
+              <TabsTrigger value="audio" className="flex items-center">
+                <Volume2 className="h-4 w-4 mr-2" />
+                Audio
+              </TabsTrigger>
+              <TabsTrigger value="document" className="flex items-center">
+                <FileText className="h-4 w-4 mr-2" />
+                Files
+              </TabsTrigger>
             </TabsList>
           </div>
 
@@ -346,6 +360,50 @@ export default function Media() {
                       />
                     </CardContent>
                   </Card>
+                ))}
+              </div>
+            )}
+          </TabsContent>
+
+          <TabsContent value="document">
+            {isLoading ? (
+              <div className="space-y-4">
+                {[...Array(6)].map((_, i) => (
+                  <Card key={i} className="animate-pulse">
+                    <CardContent className="p-4">
+                      <div className="flex items-center space-x-4">
+                        <div className="h-8 w-8 bg-gray-200 rounded"></div>
+                        <div className="flex-1">
+                          <div className="h-4 bg-gray-200 rounded mb-2"></div>
+                          <div className="h-3 bg-gray-200 rounded w-1/2"></div>
+                        </div>
+                        <div className="h-8 w-16 bg-gray-200 rounded"></div>
+                      </div>
+                    </CardContent>
+                  </Card>
+                ))}
+              </div>
+            ) : mediaFiles.length === 0 ? (
+              <div className="text-center py-12">
+                <FileText className="h-16 w-16 text-gray-400 mx-auto mb-4" />
+                <h3 className="text-lg font-semibold text-foreground mb-2">No files yet</h3>
+                <p className="text-muted-foreground mb-4">Upload your first document to get started!</p>
+                <Button 
+                  onClick={() => setIsUploadDialogOpen(true)}
+                  className="bg-panda-orange-500 hover:bg-panda-orange-600 text-white"
+                >
+                  <Upload className="h-4 w-4 mr-2" />
+                  Upload File
+                </Button>
+              </div>
+            ) : (
+              <div className="space-y-4">
+                {mediaFiles.map((file) => (
+                  <FileCard 
+                    key={file.id} 
+                    file={file} 
+                    onDelete={handleDelete}
+                  />
                 ))}
               </div>
             )}
