@@ -71,7 +71,7 @@ export const insertBlogPostSchema = createInsertSchema(blogPosts).omit({ id: tru
 export const insertTechnologySchema = createInsertSchema(technologies).omit({ id: true, createdAt: true });
 export const insertNewsArticleSchema = createInsertSchema(newsArticles).omit({ id: true, createdAt: true });
 export const insertMediaFileSchema = createInsertSchema(mediaFiles).omit({ id: true, createdAt: true });
-export const insertChatMessageSchema = createInsertSchema(chatMessages).omit({ id: true, createdAt: true });
+export const insertChatMessageSchema = createInsertSchema(chatMessages).omit({ id: true, timestamp: true });
 
 // Types
 export type User = typeof users.$inferSelect;
