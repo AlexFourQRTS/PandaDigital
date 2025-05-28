@@ -273,12 +273,16 @@ export async function registerRoutes(app: Express): Promise<Server> {
       
       const filePath = path.join(uploadDir, file.fileName);
       if (fs.existsSync(filePath)) {
+        // Set proper headers for file serving
         res.setHeader('Content-Type', file.mimeType);
-        res.sendFile(filePath);
+        res.setHeader('Content-Disposition', `inline; filename="${file.originalName}"`);
+        res.setHeader('Cache-Control', 'public, max-age=31536000');
+        res.sendFile(path.resolve(filePath));
       } else {
         res.status(404).json({ message: "File not found on disk" });
       }
     } catch (error) {
+      console.error('Error serving file:', error);
       res.status(500).json({ message: "Failed to serve file" });
     }
   });
