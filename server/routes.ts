@@ -290,20 +290,40 @@ export async function registerRoutes(app: Express): Promise<Server> {
       const id = parseInt(req.params.id);
       const file = await storage.getMediaFile(id);
       
-      if (file) {
-        // Delete file from filesystem
-        const filePath = path.join(uploadDir, file.fileName);
-        if (fs.existsSync(filePath)) {
-          fs.unlinkSync(filePath);
-        }
-        
-        // Delete from database
-        await storage.deleteMediaFile(id);
+      if (!file) {
+        return res.status(404).json({ message: "File not found" });
       }
+      
+      // Check if file is protected
+      if (file.protected) {
+        return res.status(403).json({ message: "This file is protected and cannot be deleted" });
+      }
+      
+      // Delete file from filesystem
+      const filePath = path.join(uploadDir, file.fileName);
+      if (fs.existsSync(filePath)) {
+        fs.unlinkSync(filePath);
+      }
+      
+      // Delete from database
+      await storage.deleteMediaFile(id);
       
       res.status(204).send();
     } catch (error) {
       res.status(500).json({ message: "Failed to delete media file" });
+    }
+  });
+
+  // Toggle file protection
+  app.patch("/api/media/:id/protection", async (req, res) => {
+    try {
+      const id = parseInt(req.params.id);
+      const { protected: isProtected } = req.body;
+      
+      await storage.updateMediaFileProtection(id, isProtected);
+      res.json({ message: "Protection status updated" });
+    } catch (error) {
+      res.status(500).json({ message: "Failed to update protection status" });
     }
   });
 

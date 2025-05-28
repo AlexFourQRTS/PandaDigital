@@ -36,6 +36,7 @@ export interface IStorage {
   getMediaFile(id: number): Promise<MediaFile | undefined>;
   createMediaFile(file: InsertMediaFile): Promise<MediaFile>;
   deleteMediaFile(id: number): Promise<void>;
+  updateMediaFileProtection(id: number, protected: boolean): Promise<void>;
 
   // Chat Messages
   getChatMessages(limit?: number): Promise<ChatMessage[]>;
@@ -140,6 +141,10 @@ export class DatabaseStorage implements IStorage {
 
   async deleteMediaFile(id: number): Promise<void> {
     await db.delete(mediaFiles).where(eq(mediaFiles.id, id));
+  }
+
+  async updateMediaFileProtection(id: number, protected: boolean): Promise<void> {
+    await db.update(mediaFiles).set({ protected }).where(eq(mediaFiles.id, id));
   }
 
   // Chat Messages

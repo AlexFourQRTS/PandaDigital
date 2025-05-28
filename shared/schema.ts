@@ -47,6 +47,7 @@ export const mediaFiles = pgTable("media_files", {
   fileSize: integer("file_size").notNull(),
   mediaType: varchar("media_type", { length: 20 }).notNull(), // 'photo', 'video', 'audio', 'document'
   uploadedAt: timestamp("uploaded_at").defaultNow(),
+  protected: boolean("protected").default(false), // Защита от удаления
 });
 
 export const chatMessages = pgTable("chat_messages", {
