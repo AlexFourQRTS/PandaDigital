@@ -261,6 +261,28 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  // Serve media files with pretty URLs ending with original filename
+  app.get("/api/media/:id/:originalName", async (req, res) => {
+    try {
+      const id = parseInt(req.params.id);
+      const file = await storage.getMediaFile(id);
+      
+      if (!file) {
+        return res.status(404).json({ message: "File not found" });
+      }
+      
+      const filePath = path.join(uploadDir, file.fileName);
+      if (fs.existsSync(filePath)) {
+        res.setHeader('Content-Type', file.mimeType);
+        res.sendFile(filePath);
+      } else {
+        res.status(404).json({ message: "File not found on disk" });
+      }
+    } catch (error) {
+      res.status(500).json({ message: "Failed to serve file" });
+    }
+  });
+
   // Download files with original filename
   app.get("/api/media/download/:id", async (req, res) => {
     try {

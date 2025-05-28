@@ -127,7 +127,7 @@ export default function FileCard({ file, onDelete }: FileCardProps) {
   };
 
   const handleCopyDirectLink = async () => {
-    const directUrl = `${window.location.origin}/api/media/${file.id}`;
+    const directUrl = `${window.location.origin}/api/media/${file.id}/${encodeURIComponent(file.originalName)}`;
     try {
       await navigator.clipboard.writeText(directUrl);
       toast({
