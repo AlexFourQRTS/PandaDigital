@@ -3,6 +3,7 @@ import { Link, useLocation } from "wouter";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { Menu } from "lucide-react";
+import AuthButton from "@/components/auth/AuthButton";
 
 const navigation = [
   { name: "Home", href: "/" },
@@ -53,6 +54,11 @@ export default function Header() {
               ))}
             </div>
           </nav>
+
+          {/* Auth Button - Desktop */}
+          <div className="hidden md:block">
+            <AuthButton />
+          </div>
 
           {/* Mobile menu button */}
           <div className="md:hidden">
