@@ -2,8 +2,6 @@ import { useState } from "react";
 import { useQuery, useMutation } from "@tanstack/react-query";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Textarea } from "@/components/ui/textarea";
@@ -13,10 +11,11 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { insertBlogPostSchema } from "@shared/schema";
 import { queryClient, apiRequest } from "@/lib/queryClient";
 import { useToast } from "@/hooks/use-toast";
-import { Search, Plus, Clock } from "lucide-react";
+import { Search, Plus, Clock, FileText } from "lucide-react";
 import { z } from "zod";
 import BlogCard from "@/components/blog/blog-card";
 import type { BlogPost } from "@shared/schema";
+import styles from "./Blog.module.css";
 
 const createBlogPostSchema = insertBlogPostSchema.extend({
   title: z.string().min(1, "Title is required"),
@@ -82,11 +81,11 @@ export default function Blog() {
   };
 
   return (
-    <div className="py-16 bg-white min-h-screen">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-12">
-          <h1 className="text-3xl lg:text-4xl font-bold text-graphite-900 mb-4">Tech Blog</h1>
-          <p className="text-xl text-graphite-600 mb-8">Code snippets, tutorials, and tech insights</p>
+    <div className={styles.container}>
+      <div className={styles.content}>
+        <div className={styles.header}>
+          <h1 className={styles.title}>Tech Blog</h1>
+          <p className={styles.subtitle}>Code snippets, tutorials, and tech insights</p>
           
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center max-w-2xl mx-auto">
             <div className="relative flex-1 w-full">
@@ -237,26 +236,23 @@ export default function Blog() {
         </div>
 
         {isLoading ? (
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className={styles.loadingGrid}>
             {[...Array(6)].map((_, i) => (
-              <Card key={i} className="animate-pulse">
-                <div className="bg-graphite-900 p-4">
-                  <div className="bg-gray-900 rounded-lg p-4 h-32"></div>
-                </div>
-                <CardContent className="p-6">
-                  <div className="h-4 bg-gray-200 rounded mb-2"></div>
-                  <div className="h-3 bg-gray-200 rounded mb-4"></div>
-                  <div className="h-3 bg-gray-200 rounded w-1/2"></div>
-                </CardContent>
-              </Card>
+              <div key={i} className={styles.skeletonCard}>
+                <div className={styles.skeletonTitle}></div>
+                <div className={styles.skeletonText}></div>
+                <div className={styles.skeletonText}></div>
+                <div className={styles.skeletonText}></div>
+              </div>
             ))}
           </div>
         ) : blogPosts.length === 0 ? (
-          <div className="text-center py-12">
-            <h3 className="text-lg font-semibold text-graphite-900 mb-2">
+          <div className={styles.emptyState}>
+            <FileText className={styles.emptyIcon} />
+            <h3 className={styles.emptyTitle}>
               {searchQuery ? "No posts found" : "No blog posts yet"}
             </h3>
-            <p className="text-graphite-600 mb-4">
+            <p className={styles.emptyDescription}>
               {searchQuery 
                 ? `No posts match "${searchQuery}". Try a different search term.`
                 : "Be the first to create a blog post!"
@@ -273,7 +269,7 @@ export default function Blog() {
             )}
           </div>
         ) : (
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className={styles.postsGrid}>
             {blogPosts.map((post) => (
               <BlogCard key={post.id} post={post} />
             ))}
