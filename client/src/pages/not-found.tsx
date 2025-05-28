@@ -2,49 +2,19 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Home, ArrowLeft } from "lucide-react";
 import { Link } from "wouter";
+import sadnessImage from "@assets/klipartz.com_1748440676219.png";
 
 export default function NotFound() {
   return (
     <div className="min-h-screen w-full flex items-center justify-center bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 p-4">
       <div className="text-center max-w-2xl mx-auto">
-        {/* Animated Panda SVG */}
+        {/* Sadness Character */}
         <div className="mb-8">
-          <svg
-            className="w-64 h-64 mx-auto"
-            viewBox="0 0 200 200"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            {/* Panda Body */}
-            <circle cx="100" cy="120" r="50" fill="#f3f4f6" />
-            
-            {/* Panda Head */}
-            <circle cx="100" cy="80" r="35" fill="#f3f4f6" />
-            
-            {/* Ears */}
-            <circle cx="80" cy="55" r="15" fill="#1f2937" />
-            <circle cx="120" cy="55" r="15" fill="#1f2937" />
-            
-            {/* Eyes (sad/confused) */}
-            <ellipse cx="90" cy="75" rx="8" ry="12" fill="#1f2937" />
-            <ellipse cx="110" cy="75" rx="8" ry="12" fill="#1f2937" />
-            <circle cx="88" cy="70" r="2" fill="#f3f4f6" />
-            <circle cx="108" cy="70" r="2" fill="#f3f4f6" />
-            
-            {/* Nose */}
-            <ellipse cx="100" cy="85" rx="3" ry="2" fill="#1f2937" />
-            
-            {/* Mouth (confused/sad) */}
-            <path d="M 95 90 Q 100 95 105 90" stroke="#1f2937" strokeWidth="2" fill="none" />
-            
-            {/* Arms */}
-            <ellipse cx="70" cy="110" rx="12" ry="25" fill="#1f2937" />
-            <ellipse cx="130" cy="110" rx="12" ry="25" fill="#1f2937" />
-            
-            {/* Legs */}
-            <ellipse cx="85" cy="155" rx="12" ry="20" fill="#1f2937" />
-            <ellipse cx="115" cy="155" rx="12" ry="20" fill="#1f2937" />
-          </svg>
+          <img 
+            src={sadnessImage} 
+            alt="Sad character" 
+            className="w-64 h-64 mx-auto object-contain"
+          />
         </div>
 
         {/* Error Text */}
@@ -53,23 +23,23 @@ export default function NotFound() {
             404
           </h1>
           <h2 className="text-3xl font-bold text-white mb-4">
-            Oops! Panda got lost 🐼
+            Oh no... This page is missing 😔
           </h2>
           <p className="text-xl text-gray-300 mb-2">
-            This page went on a bamboo hunt and never came back
+            I'm really sad about this, but the page you're looking for isn't here
           </p>
           <p className="text-gray-400">
-            Don't worry, even pandas get confused sometimes!
+            Maybe it got lost in the memory vault?
           </p>
         </div>
 
-        {/* Funny Quote */}
+        {/* Sad Quote */}
         <Card className="bg-gray-800/50 border-orange-500/20 mb-8 backdrop-blur-sm">
           <CardContent className="p-6">
             <blockquote className="text-lg text-gray-300 italic">
-              "I'm not lost, I'm just exploring... very thoroughly."
+              "I'm sorry... I know you really wanted to find that page."
             </blockquote>
-            <p className="text-orange-400 mt-2">- Confused Panda</p>
+            <p className="text-orange-400 mt-2">- Sadness</p>
           </CardContent>
         </Card>
 
@@ -95,10 +65,10 @@ export default function NotFound() {
         {/* Fun Facts */}
         <div className="mt-12 text-center">
           <p className="text-gray-500 text-sm">
-            🎋 Fun fact: Pandas spend 14 hours a day eating bamboo
+            💭 Fun fact: Sadness helps us appreciate the good things in life
           </p>
           <p className="text-gray-500 text-sm mt-1">
-            🔍 Maybe this page is also looking for bamboo?
+            🧠 Maybe this page is hiding in a core memory?
           </p>
         </div>
       </div>
