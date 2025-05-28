@@ -8,8 +8,8 @@ COPY package*.json ./
 # Install dependencies
 RUN npm install
 
-# Copy shared schema
-COPY ../shared ./shared
+# Copy shared schema (not needed in this structure)
+# COPY ../shared ./shared
 
 # Copy server code
 COPY . .

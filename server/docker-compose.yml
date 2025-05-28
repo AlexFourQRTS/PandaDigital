@@ -3,7 +3,7 @@ version: '3.8'
 services:
   backend:
     build:
-      context: .
+      context: ./back-end
       dockerfile: Dockerfile
     container_name: PandaBackend
     ports:

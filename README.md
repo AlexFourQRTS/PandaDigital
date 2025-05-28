@@ -46,9 +46,11 @@ docker-compose -f ../docker-compose.yml up -d
 │   │   └── assets/  # Изображения и ресурсы
 │   ├── package.json # Зависимости фронтенда
 │   └── vite.config.ts # Конфигурация Vite
-├── server/          # Express бэкенд + Docker
-│   ├── package.json # Зависимости бэкенда
-│   ├── Dockerfile   # Docker образ бэкенда
+├── server/          # Серверная часть с Docker
+│   ├── back-end/    # Express сервер
+│   │   ├── *.ts     # TypeScript файлы сервера
+│   │   ├── package.json # Зависимости бэкенда
+│   │   └── Dockerfile   # Docker образ бэкенда
 │   └── docker-compose.yml # Конфигурация Docker
 └── media/           # Папка для загруженных пользователями файлов
 ```
