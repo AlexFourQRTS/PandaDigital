@@ -66,11 +66,11 @@ export default function Chat() {
   const currentUsername = username;
 
   return (
-    <div className="py-16 bg-white min-h-screen">
+    <div className="py-16 bg-background min-h-screen">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-8">
-          <h1 className="text-3xl lg:text-4xl font-bold text-graphite-900 mb-4">Anonymous Chat</h1>
-          <p className="text-xl text-graphite-600">Join the conversation with developers worldwide</p>
+          <h1 className="text-3xl lg:text-4xl font-bold text-foreground mb-4">Anonymous Chat</h1>
+          <p className="text-xl text-muted-foreground">Join the conversation with developers worldwide</p>
         </div>
 
         <Card className="overflow-hidden shadow-lg">
