@@ -105,7 +105,7 @@ export function useWebSocket(initialMessages: ChatMessage[] = []) {
     return () => {
       disconnect();
     };
-  }, [connect, disconnect]);
+  }, []); // Remove dependencies to prevent infinite reconnections
 
   return {
     messages,
