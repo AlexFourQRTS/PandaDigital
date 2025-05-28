@@ -12,6 +12,7 @@ const navigation = [
   { name: "Media", href: "/media" },
   { name: "News", href: "/news" },
   { name: "Chat", href: "/chat" },
+  { name: "About", href: "/about" },
 ];
 
 export default function Header() {

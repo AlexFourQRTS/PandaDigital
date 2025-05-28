@@ -12,6 +12,7 @@ import Technologies from "@/pages/technologies";
 import Media from "@/pages/media";
 import News from "@/pages/news";
 import Chat from "@/pages/chat";
+import About from "@/pages/about";
 import NotFound from "@/pages/not-found";
 
 function Router() {
@@ -26,6 +27,7 @@ function Router() {
           <Route path="/media" component={Media} />
           <Route path="/news" component={News} />
           <Route path="/chat" component={Chat} />
+          <Route path="/about" component={About} />
           <Route component={NotFound} />
         </Switch>
       </main>
