@@ -69,16 +69,16 @@ export default function Header() {
                   <Menu className="h-6 w-6" />
                 </Button>
               </SheetTrigger>
-              <SheetContent side="right" className="w-[300px] sm:w-[400px] bg-gray-900 border-l border-gray-800">
+              <SheetContent side="right" className="w-[300px] sm:w-[400px]">
                 <div className="flex flex-col space-y-4 mt-8">
-                  <div className="text-xl font-bold text-white mb-4">🐼 <span className="text-orange-500">Panda</span></div>
+                  <div className="text-xl font-bold text-gray-900 mb-4">🐼 Panda</div>
                   {navigation.map((item) => (
                     <Link key={item.name} href={item.href}>
                       <a
-                        className={`block px-3 py-2 text-base font-medium transition-colors rounded-md ${
+                        className={`block px-3 py-2 text-base font-medium transition-colors ${
                           isActive(item.href)
-                            ? "text-orange-400 bg-orange-500/10 border border-orange-500/20"
-                            : "text-gray-300 hover:text-orange-400 hover:bg-gray-800"
+                            ? "text-orange-500 bg-orange-50 rounded-md"
+                            : "text-gray-700 hover:text-orange-500 hover:bg-gray-50 rounded-md"
                         }`}
                         onClick={() => setIsMobileMenuOpen(false)}
                       >
@@ -88,7 +88,7 @@ export default function Header() {
                   ))}
                   
                   {/* Auth Button - Mobile */}
-                  <div className="pt-4 border-t border-gray-800">
+                  <div className="pt-4 border-t border-gray-200">
                     <AuthButton />
                   </div>
                 </div>
