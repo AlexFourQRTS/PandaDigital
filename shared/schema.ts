@@ -12,25 +12,25 @@ export const users = pgTable('users', {
   createdAt: timestamp('created_at').defaultNow()
 });
 
-// Blog posts table
+// Blog posts table (matching existing database structure)
 export const blogPosts = pgTable('blog_posts', {
   id: serial('id').primaryKey(),
   title: text('title').notNull(),
-  content: text('content').notNull(),
-  excerpt: text('excerpt'),
-  slug: text('slug').notNull().unique(),
-  tags: text('tags').array(),
-  createdAt: timestamp('created_at').defaultNow(),
-  updatedAt: timestamp('updated_at').defaultNow()
+  description: text('description').notNull(),
+  codeSnippet: text('code_snippet'),
+  language: text('language'),
+  fileName: text('file_name'),
+  readTime: integer('read_time'),
+  createdAt: timestamp('created_at').defaultNow()
 });
 
-// Technologies table
+// Technologies table (matching existing database structure)
 export const technologies = pgTable('technologies', {
   id: serial('id').primaryKey(),
   name: text('name').notNull(),
   description: text('description').notNull(),
-  category: text('category').notNull(),
-  features: text('features').array(),
+  icon: text('icon').notNull(),
+  tags: text('tags').array(),
   createdAt: timestamp('created_at').defaultNow()
 });
 
@@ -57,12 +57,12 @@ export const mediaFiles = pgTable('media_files', {
   createdAt: timestamp('created_at').defaultNow()
 });
 
-// Chat messages table
+// Chat messages table (matching existing database structure)
 export const chatMessages = pgTable('chat_messages', {
   id: serial('id').primaryKey(),
   username: text('username').notNull(),
   content: text('content').notNull(),
-  createdAt: timestamp('created_at').defaultNow()
+  timestamp: timestamp('timestamp').defaultNow()
 });
 
 // Insert schemas
