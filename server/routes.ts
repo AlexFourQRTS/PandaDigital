@@ -225,19 +225,22 @@ export async function registerRoutes(app: Express): Promise<Server> {
       const { originalname, filename, mimetype, size } = req.file;
       
       // Determine media type based on mime type
-      let mediaType = "photo";
-      if (mimetype.startsWith("video/")) {
+      let mediaType = "document"; // Default to document
+      if (mimetype.startsWith("image/")) {
+        mediaType = "photo";
+      } else if (mimetype.startsWith("video/")) {
         mediaType = "video";
       } else if (mimetype.startsWith("audio/")) {
         mediaType = "audio";
       }
+      // All other files remain as 'document'
 
       const mediaFile = await storage.createMediaFile({
         fileName: filename,
         originalName: originalname,
         mimeType: mimetype,
         fileSize: size,
-        mediaType: mediaType as "photo" | "video" | "audio",
+        mediaType: mediaType as "photo" | "video" | "audio" | "document",
       });
 
       res.status(201).json(mediaFile);
@@ -255,6 +258,30 @@ export async function registerRoutes(app: Express): Promise<Server> {
       res.sendFile(filePath);
     } else {
       res.status(404).json({ message: "File not found" });
+    }
+  });
+
+  // Download files with original filename
+  app.get("/api/media/download/:id", async (req, res) => {
+    try {
+      const id = parseInt(req.params.id);
+      const file = await storage.getMediaFile(id);
+      
+      if (!file) {
+        return res.status(404).json({ message: "File not found" });
+      }
+
+      const filePath = path.join(uploadDir, file.fileName);
+      
+      if (fs.existsSync(filePath)) {
+        res.setHeader('Content-Disposition', `attachment; filename="${file.originalName}"`);
+        res.setHeader('Content-Type', file.mimeType);
+        res.sendFile(filePath);
+      } else {
+        res.status(404).json({ message: "File not found on disk" });
+      }
+    } catch (error) {
+      res.status(500).json({ message: "Failed to download file" });
     }
   });
 

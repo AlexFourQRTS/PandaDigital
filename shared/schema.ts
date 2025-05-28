@@ -45,7 +45,7 @@ export const mediaFiles = pgTable("media_files", {
   originalName: text("original_name").notNull(),
   mimeType: text("mime_type").notNull(),
   fileSize: integer("file_size").notNull(),
-  mediaType: varchar("media_type", { length: 10 }).notNull(), // 'photo', 'video', 'audio'
+  mediaType: varchar("media_type", { length: 20 }).notNull(), // 'photo', 'video', 'audio', 'document'
   uploadedAt: timestamp("uploaded_at").defaultNow(),
 });
 
