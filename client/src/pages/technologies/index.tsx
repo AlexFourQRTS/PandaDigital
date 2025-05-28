@@ -113,10 +113,10 @@ export default function Technologies() {
           
           <Dialog open={isCreateDialogOpen} onOpenChange={setIsCreateDialogOpen}>
             <DialogTrigger asChild>
-              <Button className="bg-panda-orange-500 hover:bg-panda-orange-600 text-white">
-                <Plus className="h-4 w-4 mr-2" />
+              <button className={styles.addButton}>
+                <Plus className="h-4 w-4" />
                 Add Technology
-              </Button>
+              </button>
             </DialogTrigger>
             <DialogContent className="max-w-lg">
               <DialogHeader>
