@@ -4,17 +4,18 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Send, Users } from "lucide-react";
+import { Send, Users, LogIn } from "lucide-react";
 import { useWebSocket } from "@/hooks/use-websocket";
+import { useAuth } from "@/contexts/AuthContext";
 import ChatMessage from "@/components/chat/chat-message";
 import type { ChatMessage as ChatMessageType } from "@shared/schema";
 
 export default function Chat() {
   const [message, setMessage] = useState("");
-  const [username, setUsername] = useState(() => `User_${Math.floor(Math.random() * 1000)}`);
   const [isConnected, setIsConnected] = useState(false);
   const [onlineCount, setOnlineCount] = useState(1);
   const messagesEndRef = useRef<HTMLDivElement>(null);
+  const { user, isAuthenticated, signIn } = useAuth();
 
   const { data: initialMessages = [] } = useQuery<ChatMessageType[]>({
     queryKey: ["/api/chat/messages"],
@@ -40,8 +41,9 @@ export default function Chat() {
   }, [liveMessages]);
 
   const handleSendMessage = () => {
-    if (message.trim() && sendMessage) {
-      sendMessage(username, message.trim());
+    if (message.trim() && sendMessage && isAuthenticated) {
+      const displayName = user?.displayName || user?.email || 'Anonymous User';
+      sendMessage(displayName, message.trim());
       setMessage("");
     }
   };
@@ -61,6 +63,8 @@ export default function Chat() {
     const colorIndex = name.split("").reduce((acc, char) => acc + char.charCodeAt(0), 0) % colors.length;
     return colors[colorIndex];
   };
+
+  const currentUsername = user?.displayName || user?.email || 'Anonymous User';
 
   return (
     <div className="py-16 bg-white min-h-screen">
@@ -102,7 +106,7 @@ export default function Chat() {
                     key={msg.id || index}
                     message={msg}
                     avatarColor={generateAvatar(msg.username)}
-                    isOwn={msg.username === username}
+                    isOwn={msg.username === currentUsername}
                   />
                 ))
               )}
@@ -111,37 +115,51 @@ export default function Chat() {
 
             {/* Input Area */}
             <div className="border-t border-gray-200 p-4 bg-white">
-              <div className="flex space-x-3 mb-3">
-                <Input
-                  type="text"
-                  placeholder="Your username"
-                  value={username}
-                  onChange={(e) => setUsername(e.target.value)}
-                  className="w-40"
-                />
-              </div>
-              <div className="flex space-x-3">
-                <Input
-                  type="text"
-                  placeholder="Type your message..."
-                  value={message}
-                  onChange={(e) => setMessage(e.target.value)}
-                  onKeyPress={handleKeyPress}
-                  disabled={!isConnected}
-                  className="flex-1"
-                />
-                <Button
-                  onClick={handleSendMessage}
-                  disabled={!message.trim() || !isConnected}
-                  className="bg-panda-orange-500 hover:bg-panda-orange-600 text-white"
-                >
-                  <Send className="h-4 w-4" />
-                </Button>
-              </div>
-              {!isConnected && (
-                <p className="text-sm text-red-500 mt-2">
-                  Connection lost. Attempting to reconnect...
-                </p>
+              {!isAuthenticated ? (
+                <div className="text-center py-8">
+                  <LogIn className="h-12 w-12 text-gray-400 mx-auto mb-4" />
+                  <h3 className="text-lg font-semibold text-graphite-900 mb-2">Sign in to join the chat</h3>
+                  <p className="text-graphite-600 mb-4">Please sign in with Google to participate in the conversation</p>
+                  <Button 
+                    onClick={signIn}
+                    className="bg-panda-orange-500 hover:bg-panda-orange-600 text-white"
+                  >
+                    <LogIn className="h-4 w-4 mr-2" />
+                    Sign In with Google
+                  </Button>
+                </div>
+              ) : (
+                <>
+                  <div className="flex space-x-3 mb-3">
+                    <div className="flex-1 px-3 py-2 bg-gray-50 rounded-md">
+                      <span className="text-sm text-graphite-600">Signed in as: </span>
+                      <span className="text-sm font-medium text-graphite-900">{currentUsername}</span>
+                    </div>
+                  </div>
+                  <div className="flex space-x-3">
+                    <Input
+                      type="text"
+                      placeholder="Type your message..."
+                      value={message}
+                      onChange={(e) => setMessage(e.target.value)}
+                      onKeyPress={handleKeyPress}
+                      disabled={!isConnected || !isAuthenticated}
+                      className="flex-1"
+                    />
+                    <Button
+                      onClick={handleSendMessage}
+                      disabled={!message.trim() || !isConnected || !isAuthenticated}
+                      className="bg-panda-orange-500 hover:bg-panda-orange-600 text-white"
+                    >
+                      <Send className="h-4 w-4" />
+                    </Button>
+                  </div>
+                  {!isConnected && (
+                    <p className="text-sm text-red-500 mt-2">
+                      Connection lost. Attempting to reconnect...
+                    </p>
+                  )}
+                </>
               )}
             </div>
           </CardContent>
@@ -158,7 +176,7 @@ export default function Chat() {
               <li>• Stay on topic (technology and development)</li>
               <li>• No spam or inappropriate content</li>
               <li>• Help others and share knowledge</li>
-              <li>• This is an anonymous chat - no personal information required</li>
+              <li>• {isAuthenticated ? 'Your messages are linked to your Google account' : 'Sign in to participate in conversations'}</li>
             </ul>
           </CardContent>
         </Card>

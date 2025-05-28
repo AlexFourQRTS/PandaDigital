@@ -85,6 +85,11 @@ export default function Header() {
                       </a>
                     </Link>
                   ))}
+                  
+                  {/* Auth Button - Mobile */}
+                  <div className="pt-4 border-t border-gray-200">
+                    <AuthButton />
+                  </div>
                 </div>
               </SheetContent>
             </Sheet>
