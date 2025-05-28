@@ -12,6 +12,7 @@ import { Upload, Play, Volume2, Image, Trash2, FileText } from "lucide-react";
 import MediaPlayer from "@/components/media/media-player";
 import FileCard from "@/components/media/file-card";
 import type { MediaFile } from "@shared/schema";
+import styles from "./Media.module.css";
 
 export default function Media() {
   const [selectedMediaType, setSelectedMediaType] = useState<"photo" | "video" | "audio" | "document">("photo");

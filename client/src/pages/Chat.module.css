@@ -1,28 +1,32 @@
 /* Chat Page Styles */
 .container {
   height: 100vh;
-  background: hsl(var(--background));
   display: flex;
   flex-direction: column;
 }
 
 .header {
-  background: hsl(var(--card));
-  border-bottom: 1px solid hsl(var(--border));
-  padding: 1rem;
+  background: linear-gradient(135deg, hsl(var(--graphite-900)) 0%, hsl(var(--graphite-800)) 100%);
+  color: white;
+  padding: 2rem 1rem;
   text-align: center;
 }
 
 .title {
-  font-size: 1.5rem;
+  font-size: clamp(1.5rem, 3vw, 2.5rem);
   font-weight: bold;
-  color: hsl(var(--foreground));
   margin-bottom: 0.5rem;
 }
 
+.titleHighlight {
+  color: hsl(var(--panda-orange-500));
+  text-shadow: 0 0 20px rgba(255, 107, 53, 0.3);
+}
+
 .subtitle {
-  color: hsl(var(--muted-foreground));
-  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 1rem;
+  margin-bottom: 1rem;
 }
 
 .status {
