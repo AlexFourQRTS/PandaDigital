@@ -3,7 +3,7 @@ import {
   type User, type InsertUser, type BlogPost, type InsertBlogPost,
   type Technology, type InsertTechnology, type NewsArticle, type InsertNewsArticle,
   type MediaFile, type InsertMediaFile, type ChatMessage, type InsertChatMessage
-} from "../common-data/schema";
+} from "@shared/schema";
 import { db } from "./db";
 import { eq, ilike, desc } from "drizzle-orm";
 
