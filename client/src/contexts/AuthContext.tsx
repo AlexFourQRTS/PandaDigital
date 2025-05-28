@@ -24,73 +24,25 @@ export function AuthProvider({ children }: AuthProviderProps) {
   const { toast } = useToast();
 
   useEffect(() => {
-    // Handle redirect result on page load
-    const handleRedirect = async () => {
-      try {
-        const result = await handleRedirectResult();
-        if (result?.user) {
-          toast({
-            title: "Welcome!",
-            description: `Successfully signed in as ${result.user.displayName}`,
-          });
-        }
-      } catch (error: any) {
-        console.error("Redirect authentication error:", error);
-        setError(error.message);
-        toast({
-          title: "Authentication Error",
-          description: "Failed to complete sign in. Please try again.",
-          variant: "destructive",
-        });
-      }
-    };
-
-    handleRedirect();
-
-    // Listen for auth state changes
-    const unsubscribe = onAuthStateChange((user) => {
-      setUser(user);
-      setIsLoading(false);
-      setError(null);
-    });
-
-    return () => unsubscribe();
-  }, [toast]);
+    // Mock auth is disabled, set loading to false immediately
+    setIsLoading(false);
+    setUser(null);
+  }, []);
 
   const signIn = async () => {
-    try {
-      setError(null);
-      setIsLoading(true);
-      await signInWithGoogle();
-    } catch (error: any) {
-      console.error("Sign in error:", error);
-      setError(error.message);
-      toast({
-        title: "Sign In Error",
-        description: "Failed to sign in with Google. Please try again.",
-        variant: "destructive",
-      });
-      setIsLoading(false);
-    }
+    // Mock implementation - authentication disabled
+    toast({
+      title: "Authentication Disabled",
+      description: "Google authentication is temporarily disabled. Use anonymous chat instead.",
+    });
   };
 
   const signOut = async () => {
-    try {
-      setError(null);
-      await logOut();
-      toast({
-        title: "Signed Out",
-        description: "You have been successfully signed out.",
-      });
-    } catch (error: any) {
-      console.error("Sign out error:", error);
-      setError(error.message);
-      toast({
-        title: "Sign Out Error",
-        description: "Failed to sign out. Please try again.",
-        variant: "destructive",
-      });
-    }
+    // Mock implementation - authentication disabled
+    toast({
+      title: "Authentication Disabled", 
+      description: "Google authentication is temporarily disabled.",
+    });
   };
 
   const value: AuthContextType = {

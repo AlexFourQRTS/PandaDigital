@@ -1,37 +1,35 @@
-import { initializeApp } from "firebase/app";
-import { getAuth, signInWithRedirect, getRedirectResult, GoogleAuthProvider, signOut, onAuthStateChanged, type User } from "firebase/auth";
+// Mock Firebase implementation - no authentication required
+// This allows the app to work without Firebase credentials
 
-const firebaseConfig = {
-  apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
-  authDomain: `${import.meta.env.VITE_FIREBASE_PROJECT_ID}.firebaseapp.com`,
-  projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID,
-  storageBucket: `${import.meta.env.VITE_FIREBASE_PROJECT_ID}.firebasestorage.app`,
-  appId: import.meta.env.VITE_FIREBASE_APP_ID,
+export interface User {
+  uid: string;
+  email: string | null;
+  displayName: string | null;
+  photoURL: string | null;
+  emailVerified: boolean;
+}
+
+// Mock auth object
+export const auth = {
+  currentUser: null,
+  onAuthStateChanged: () => () => {},
 };
 
-// Initialize Firebase
-const app = initializeApp(firebaseConfig);
-
-// Initialize Firebase Authentication and get a reference to the service
-export const auth = getAuth(app);
-
-// Google Auth Provider
-const googleProvider = new GoogleAuthProvider();
-
 export const signInWithGoogle = () => {
-  return signInWithRedirect(auth, googleProvider);
+  return Promise.resolve();
 };
 
 export const handleRedirectResult = () => {
-  return getRedirectResult(auth);
+  return Promise.resolve(null);
 };
 
 export const logOut = () => {
-  return signOut(auth);
+  return Promise.resolve();
 };
 
 export const onAuthStateChange = (callback: (user: User | null) => void) => {
-  return onAuthStateChanged(auth, callback);
+  // Always call with null user (not authenticated)
+  callback(null);
+  // Return unsubscribe function
+  return () => {};
 };
-
-export { type User };
