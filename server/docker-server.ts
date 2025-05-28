@@ -4,14 +4,25 @@ import { registerRoutes } from "./routes";
 
 const app = express();
 
-// CORS configuration for Docker setup
+// CORS configuration for React dev server
+const allowedOrigins = [
+  'http://localhost:5173',  // Vite dev server
+  'http://localhost:3000',  // Alternative React port
+  process.env.CORS_ORIGIN   // From docker-compose environment
+].filter((origin): origin is string => Boolean(origin));
+
 app.use(cors({
-  origin: ['http://localhost:3000', 'http://frontend:3000'],
+  origin: allowedOrigins,
   credentials: true
 }));
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
+
+// Health check endpoint
+app.get('/api/health', (req, res) => {
+  res.status(200).json({ status: 'ok', timestamp: new Date().toISOString() });
+});
 
 // Serve uploads directory
 app.use('/uploads', express.static('/app/uploads'));
@@ -57,7 +68,7 @@ app.use((req, res, next) => {
     console.error(err);
   });
 
-  const port = 3001;
+  const port = 5000;
   server.listen({
     port,
     host: "0.0.0.0",
